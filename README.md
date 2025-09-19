@@ -1,70 +1,83 @@
-# Getting Started with Create React App
+# Niwaas - Real Estate Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern React-based real estate platform with Firebase authentication.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Multi-User Authentication**: Property Owners, Buyers, and Brokers/Agents
+- **Firebase Integration**: Email/password and Google authentication
+- **Responsive Design**: Mobile-friendly interface
+- **Protected Routes**: Secure access to user-specific pages
+- **Property Search**: Advanced filtering capabilities
+- **City-based Browsing**: Explore properties by location
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- React 18
+- React Router DOM
+- Firebase Authentication & Firestore
+- CSS3 (No external frameworks)
+- Create React App
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Pages
 
-### `npm test`
+### Functional Pages (Implemented)
+- **Home**: Hero section with city modules
+- **Login**: Multi-user type authentication
+- **Search**: Property filtering and results
+- **Property Details**: Individual property information
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Structure-Only Pages (Ready for Development)
+- About, Contact, Profile, Favorites, Dashboard
 
-### `npm run build`
+## Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repository
+```bash
+git clone https://github.com/arijit-06/niwaas.git
+cd niwaas
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Install dependencies
+```bash
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Start the development server
+```bash
+npm start
+```
 
-### `npm run eject`
+## Firebase Configuration
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The project is pre-configured with Firebase. Authentication includes:
+- Email/password signup and login
+- Google Sign-in
+- Protected routes for authenticated users
+- User state management
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Project Structure
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```
+src/
+├── components/          # Reusable components
+├── contexts/           # React contexts (Auth)
+├── firebase/           # Firebase configuration
+├── pages/              # Page components
+└── styles/             # CSS files
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Authentication Flow
 
-## Learn More
+1. Users select their type (Owner/Buyer/Broker)
+2. Sign up or login with email/password or Google
+3. Access protected pages (Profile, Favorites, Dashboard)
+4. Secure logout functionality
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Contributing
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Built by @teamenginuity
 
-### Code Splitting
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+All rights reserved.
