@@ -1,10 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { HeroSlider } from '../components/HeroSlider';
 import { cities } from '../data/cities';
+import { fetchAllProperties } from '../services/propertyService';
+import PropertyCard from '../components/PropertyCard';
 import '../styles/Home.css';
 
 const Home = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const loadProperties = async () => {
+      const data = await fetchAllProperties();
+      setProperties(data);
+      setLoading(false);
+    };
+    loadProperties();
+  }, []);
+
+  const getTopPropertiesForCity = (cityName) => {
+    return properties.filter(property => 
+      property.city?.toLowerCase() === cityName.toLowerCase()
+    ).slice(0, 4);
+  };
+
+  const handleCityClick = (cityName) => {
+    navigate(`/search?city=${cityName}`);
+  };
 
   return (
     <main>
@@ -26,6 +51,30 @@ const Home = () => {
             </li>
           ))}
         </ul>
+        
+        <div className="city-properties">
+          <div className="city-header">
+            <h4>Top Properties in {cities[activeIndex].name}</h4>
+            <button 
+              className="view-all-btn"
+              onClick={() => handleCityClick(cities[activeIndex].name)}
+            >
+              View All Properties
+            </button>
+          </div>
+          {loading ? (
+            <div className="loading">Loading properties...</div>
+          ) : (
+            <div className="properties-grid">
+              {getTopPropertiesForCity(cities[activeIndex].name).map(property => (
+                <PropertyCard key={property.id} property={property} />
+              ))}
+            </div>
+          )}
+          {!loading && getTopPropertiesForCity(cities[activeIndex].name).length === 0 && (
+            <div className="no-properties">No properties available in {cities[activeIndex].name}</div>
+          )}
+        </div>
       </section>
 
       {/* Features Section */}

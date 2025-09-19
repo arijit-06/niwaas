@@ -25,13 +25,68 @@
 }
 
 .city-list li:hover {
-  background: #2563eb;
+  background: #0d1c7d;
   color: #fff;
 }
 
 .city-list li.active {
   background: #059669;
   color: #fff;
+}
+
+.city-properties {
+  margin-top: 3rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 2rem;
+}
+
+.city-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.city-header h4 {
+  font-size: 1.5rem;
+  color: #2d3748;
+}
+
+.view-all-btn {
+  background: #0d1c7d;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.view-all-btn:hover {
+  background: #1d4ed8;
+}
+
+.properties-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #718096;
+}
+
+.no-properties {
+  text-align: center;
+  padding: 2rem;
+  color: #718096;
+  font-style: italic;
 }
 
 /* Features Section */
@@ -149,7 +204,7 @@
   .features-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .cta-buttons {
     flex-direction: column;
     align-items: center;
