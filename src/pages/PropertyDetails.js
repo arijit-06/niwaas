@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { fetchPropertyById } from '../services/propertyService';
 import '../styles/PropertyDetails.css';
 
 const PropertyDetails = () => {
   const { id } = useParams();
+  const [property, setProperty] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [contactForm, setContactForm] = useState({
     name: '',
     email: '',
     message: ''
   });
+
+  useEffect(() => {
+    const loadProperty = async () => {
+      const data = await fetchPropertyById(id);
+      setProperty(data);
+      setLoading(false);
+    };
+    loadProperty();
+  }, [id]);
 
   const handleInputChange = (e) => {
     setContactForm({
@@ -24,47 +36,64 @@ const PropertyDetails = () => {
     setContactForm({ name: '', email: '', message: '' });
   };
 
+  if (loading) {
+    return (
+      <div className="property-details">
+        <div className="container">
+          <p>Loading property details...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!property) {
+    return (
+      <div className="property-details">
+        <div className="container">
+          <p>Property not found.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="property-details">
       <div className="container">
-        <h1>Property Details</h1>
+        <h1>{property.title}</h1>
         
         <div className="property-content">
           <div className="property-images">
             <div className="main-image">
-              <div className="placeholder-image">
-                <span>Property Image</span>
-              </div>
+              <img src={property.image || '/placeholder-property.jpg'} alt={property.title} />
             </div>
           </div>
 
           <div className="property-info">
-            <div className="price">₹5,00,000</div>
-            <div className="address">123 Main Street, Sample City</div>
+            <div className="price">₹{property.price?.toLocaleString()}</div>
+            <div className="address">{property.address}, {property.city}</div>
             
             <div className="property-features">
               <div className="feature">
                 <span className="feature-label">Bedrooms:</span>
-                <span className="feature-value">3</span>
+                <span className="feature-value">{property.bedrooms}</span>
               </div>
               <div className="feature">
                 <span className="feature-label">Bathrooms:</span>
-                <span className="feature-value">2</span>
+                <span className="feature-value">{property.bathrooms}</span>
               </div>
               <div className="feature">
                 <span className="feature-label">Square Feet:</span>
-                <span className="feature-value">1,850</span>
+                <span className="feature-value">{property.area?.toLocaleString()}</span>
+              </div>
+              <div className="feature">
+                <span className="feature-label">Type:</span>
+                <span className="feature-value">{property.type}</span>
               </div>
             </div>
 
             <div className="property-description">
               <h3>Description</h3>
-              <p>
-                This beautiful property offers modern living in a prime location. 
-                Features include spacious rooms, updated kitchen, and a lovely garden. 
-                Perfect for families looking for comfort and convenience. 
-                Close to schools, shopping centers, and public transportation.
-              </p>
+              <p>{property.description || 'No description available.'}</p>
             </div>
           </div>
         </div>

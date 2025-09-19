@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { searchProperties } from '../services/propertyService';
+import PropertyCard from '../components/PropertyCard';
 import '../styles/Search.css';
 
 const Search = () => {
@@ -11,12 +13,21 @@ const Search = () => {
     bedrooms: '',
     bathrooms: ''
   });
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (state?.city) {
       setFilters(prev => ({ ...prev, location: state.city }));
     }
   }, [state]);
+
+  const handleSearch = async () => {
+    setLoading(true);
+    const results = await searchProperties(filters);
+    setProperties(results);
+    setLoading(false);
+  };
 
   const handlePropertyTypeChange = (type) => {
     setFilters(prev => ({
@@ -106,15 +117,22 @@ const Search = () => {
             </div>
           </div>
 
-          <button className="search-btn">Search Properties</button>
+          <button className="search-btn" onClick={handleSearch}>Search Properties</button>
         </div>
 
         <div className="search-results">
           <h2>Search Results</h2>
-          <p>Search results will appear here</p>
-          <div className="results-grid">
-            {/* Property cards will be displayed here */}
-          </div>
+          {loading ? (
+            <p>Searching properties...</p>
+          ) : properties.length > 0 ? (
+            <div className="results-grid">
+              {properties.map(property => (
+                <PropertyCard key={property.id} property={property} />
+              ))}
+            </div>
+          ) : (
+            <p>No properties found. Try adjusting your search criteria.</p>
+          )}
         </div>
       </div>
     </div>

@@ -1,18 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { fetchAllProperties } from '../services/propertyService';
+import PropertyCard from '../components/PropertyCard';
 import '../styles/Home.css';
 
 const Home = () => {
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
   const cities = [
-    { name: 'Mumbai', properties: 1250, id: 1 },
-    { name: 'Delhi', properties: 980, id: 2 },
-    { name: 'Bangalore', properties: 750, id: 3 },
-    { name: 'Chennai', properties: 620, id: 4 },
-    { name: 'Pune', properties: 540, id: 5 },
-    { name: 'Hyderabad', properties: 480, id: 6 },
-    { name: 'Kolkata', properties: 420, id: 7 },
-    { name: 'Ahmedabad', properties: 350, id: 8 }
+    { name: 'Mumbai', properties: 0, id: 1 },
+    { name: 'Delhi', properties: 0, id: 2 },
+    { name: 'Bangalore', properties: 0, id: 3 },
+    { name: 'Chennai', properties: 0, id: 4 },
+    { name: 'Pune', properties: 0, id: 5 },
+    { name: 'Hyderabad', properties: 0, id: 6 },
+    { name: 'Kolkata', properties: 0, id: 7 },
+    { name: 'Ahmedabad', properties: 0, id: 8 }
   ];
+
+  useEffect(() => {
+    const loadProperties = async () => {
+      const data = await fetchAllProperties();
+      setProperties(data.slice(0, 6));
+      
+      // Update city counts
+      cities.forEach(city => {
+        city.properties = data.filter(p => p.city === city.name).length;
+      });
+      
+      setLoading(false);
+    };
+    loadProperties();
+  }, []);
 
   return (
     <div className="home">
@@ -41,6 +61,21 @@ const Home = () => {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="featured-properties">
+        <div className="container">
+          <h2>Featured Properties</h2>
+          {loading ? (
+            <p>Loading properties...</p>
+          ) : (
+            <div className="properties-grid">
+              {properties.map(property => (
+                <PropertyCard key={property.id} property={property} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </div>
