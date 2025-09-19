@@ -1,0 +1,70 @@
+.upload-page {
+  padding: 2rem 0;
+  min-height: 80vh;
+}
+
+.upload-page h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--primary-color);
+}
+
+.upload-form {
+  max-width: 600px;
+  margin: 0 auto;
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.upload-form label {
+  display: block;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.upload-form input,
+.upload-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.upload-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.upload-form button {
+  width: 100%;
+  padding: 1rem;
+  background: var(--secondary-color);
+  color: var(--white);
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.upload-form button:hover {
+  background: #2980b9;
+}
+
+.status {
+  text-align: center;
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.status {
+  background: var(--light-gray);
+  color: var(--primary-color);
+}

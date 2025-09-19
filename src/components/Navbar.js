@@ -48,8 +48,18 @@ const Navbar = () => {
         <div className="navbar-nav">
           <Link to="/" className="nav-link">Home</Link>
           <Link to="/search" className="nav-link">Search</Link>
-          <button className="nav-button owners">For Owners</button>
-          <button className="nav-button brokers">For Brokers</button>
+          <button 
+            className="nav-button owners"
+            onClick={() => navigate('/login/owner')}
+          >
+            For Owners
+          </button>
+          <button 
+            className="nav-button brokers"
+            onClick={() => navigate('/login/broker')}
+          >
+            For Brokers
+          </button>
         </div>
 
         {/* Profile Section */}
@@ -114,8 +124,24 @@ const Navbar = () => {
         <Link to="/search" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>
           Search
         </Link>
-        <button className="mobile-nav-button owners">For Owners</button>
-        <button className="mobile-nav-button brokers">For Brokers</button>
+        <button 
+          className="mobile-nav-button owners"
+          onClick={() => {
+            setIsMenuOpen(false);
+            navigate('/login/owner');
+          }}
+        >
+          For Owners
+        </button>
+        <button 
+          className="mobile-nav-button brokers"
+          onClick={() => {
+            setIsMenuOpen(false);
+            navigate('/login/broker');
+          }}
+        >
+          For Brokers
+        </button>
         {!currentUser && (
           <Link to="/login" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>
             Login

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../firebase/config';
 
 const LoginForm = ({ userType }) => {
   const [email, setEmail] = useState('');
@@ -23,13 +25,29 @@ const LoginForm = ({ userType }) => {
       setError('');
       setLoading(true);
       
+      let user;
       if (isSignup) {
-        await signup(email, password);
+        const result = await signup(email, password);
+        user = result.user;
+        // Store user type in Firestore
+        await setDoc(doc(db, 'users', user.uid), {
+          uid: user.uid,
+          email: user.email,
+          userType
+        });
       } else {
-        await login(email, password);
+        const result = await login(email, password);
+        user = result.user;
       }
       
-      navigate('/dashboard');
+      // Navigate based on user type
+      if (userType === 'owner') {
+        navigate('/owner/dashboard');
+      } else if (userType === 'broker') {
+        navigate('/broker/dashboard');
+      } else {
+        navigate('/dashboard');
+      }
     } catch (error) {
       setError('Failed to ' + (isSignup ? 'create account' : 'sign in'));
     }
@@ -41,8 +59,24 @@ const LoginForm = ({ userType }) => {
     try {
       setError('');
       setLoading(true);
-      await signInWithGoogle();
-      navigate('/dashboard');
+      const result = await signInWithGoogle();
+      const user = result.user;
+      
+      // Store user type in Firestore for Google sign-in
+      await setDoc(doc(db, 'users', user.uid), {
+        uid: user.uid,
+        email: user.email,
+        userType
+      }, { merge: true });
+      
+      // Navigate based on user type
+      if (userType === 'owner') {
+        navigate('/owner/dashboard');
+      } else if (userType === 'broker') {
+        navigate('/broker/dashboard');
+      } else {
+        navigate('/dashboard');
+      }
     } catch (error) {
       setError('Failed to sign in with Google');
     }
