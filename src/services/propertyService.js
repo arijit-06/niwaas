@@ -57,10 +57,7 @@ export const searchProperties = async (filters) => {
       q = query(q, where('city', '==', filters.location));
     }
     if (filters.propertyTypes && filters.propertyTypes.length > 0) {
-      q = query(q, where('type', 'in', filters.propertyTypes));
-    }
-    if (filters.priceRange) {
-      q = query(q, where('price', '<=', filters.priceRange));
+      q = query(q, where('bhk', 'in', filters.propertyTypes.map(t => parseInt(t))));
     }
 
     const snapshot = await getDocs(q);

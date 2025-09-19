@@ -64,36 +64,57 @@ const PropertyDetails = () => {
         <div className="property-content">
           <div className="property-images">
             <div className="main-image">
-              <img src={property.image || '/placeholder-property.jpg'} alt={property.title} />
+              <div className="placeholder-image">
+                <span>Property Image</span>
+              </div>
             </div>
           </div>
 
           <div className="property-info">
-            <div className="price">₹{property.price?.toLocaleString()}</div>
-            <div className="address">{property.address}, {property.city}</div>
+            <div className="price">₹{property.listed_price?.toLocaleString()}</div>
+            <div className="address">{property.location}</div>
             
             <div className="property-features">
               <div className="feature">
-                <span className="feature-label">Bedrooms:</span>
-                <span className="feature-value">{property.bedrooms}</span>
+                <span className="feature-label">BHK:</span>
+                <span className="feature-value">{property.bhk}</span>
               </div>
               <div className="feature">
-                <span className="feature-label">Bathrooms:</span>
-                <span className="feature-value">{property.bathrooms}</span>
+                <span className="feature-label">Floor:</span>
+                <span className="feature-value">{property.floor}</span>
               </div>
               <div className="feature">
                 <span className="feature-label">Square Feet:</span>
-                <span className="feature-value">{property.area?.toLocaleString()}</span>
+                <span className="feature-value">{property.size_sqft?.toLocaleString()}</span>
               </div>
               <div className="feature">
-                <span className="feature-label">Type:</span>
-                <span className="feature-value">{property.type}</span>
+                <span className="feature-label">Facing:</span>
+                <span className="feature-value">{property.facing}</span>
+              </div>
+              <div className="feature">
+                <span className="feature-label">Year Built:</span>
+                <span className="feature-value">{property.year_built}</span>
               </div>
             </div>
 
             <div className="property-description">
-              <h3>Description</h3>
-              <p>{property.description || 'No description available.'}</p>
+              <h3>Amenities</h3>
+              <div className="amenities-list">
+                {property.amenities?.map((amenity, index) => (
+                  <span key={index} className="amenity-tag">{amenity}</span>
+                ))}
+              </div>
+              
+              <h3>Reviews</h3>
+              <div className="reviews-list">
+                {property.reviews?.map((review, index) => (
+                  <div key={index} className="review">
+                    <div className="review-rating">{'★'.repeat(review.rating)}</div>
+                    <p className="review-text">{review.text}</p>
+                    <span className="review-user">- {review.user}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

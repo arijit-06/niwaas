@@ -157,6 +157,49 @@
   background: #2980b9;
 }
 
+.amenities-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.amenity-tag {
+  background: var(--light-gray);
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  color: var(--primary-color);
+}
+
+.reviews-list {
+  margin-top: 1rem;
+}
+
+.review {
+  background: var(--light-gray);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.review-rating {
+  color: #ffd700;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.review-text {
+  margin-bottom: 0.5rem;
+  color: #666;
+}
+
+.review-user {
+  font-size: 0.9rem;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .property-details h1 {

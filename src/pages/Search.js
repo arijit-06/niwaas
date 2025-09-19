@@ -8,7 +8,6 @@ const Search = () => {
   const { state } = useLocation();
   const [filters, setFilters] = useState({
     location: '',
-    priceRange: 500000,
     propertyTypes: [],
     bedrooms: '',
     bathrooms: ''
@@ -29,14 +28,20 @@ const Search = () => {
     setLoading(false);
   };
 
-  const handlePropertyTypeChange = (type) => {
+  const handlePropertyTypeChange = (bhk) => {
     setFilters(prev => ({
       ...prev,
-      propertyTypes: prev.propertyTypes.includes(type)
-        ? prev.propertyTypes.filter(t => t !== type)
-        : [...prev.propertyTypes, type]
+      propertyTypes: prev.propertyTypes.includes(bhk)
+        ? prev.propertyTypes.filter(t => t !== bhk)
+        : [...prev.propertyTypes, bhk]
     }));
   };
+
+  useEffect(() => {
+    if (state?.city) {
+      handleSearch();
+    }
+  }, [filters.location]);
 
   return (
     <div className="search">
@@ -51,37 +56,26 @@ const Search = () => {
               onChange={(e) => setFilters({...filters, location: e.target.value})}
             >
               <option value="">Select City</option>
-              <option value="mumbai">Mumbai</option>
-              <option value="delhi">Delhi</option>
-              <option value="bangalore">Bangalore</option>
-              <option value="chennai">Chennai</option>
-              <option value="pune">Pune</option>
-              <option value="hyderabad">Hyderabad</option>
+              <option value="Mumbai">Mumbai</option>
+              <option value="Delhi">Delhi</option>
+              <option value="Bangalore">Bangalore</option>
+              <option value="Chennai">Chennai</option>
+              <option value="Pune">Pune</option>
+              <option value="Hyderabad">Hyderabad</option>
             </select>
           </div>
 
           <div className="filter-group">
-            <label>Price Range (₹)
-              <input
-                type="number"
-                value={filters.priceRange}
-                onChange={e => setFilters({...filters, priceRange: parseInt(e.target.value)})}
-                placeholder="e.g., 500000"
-              />
-            </label>
-          </div>
-
-          <div className="filter-group">
-            <label>Property Type</label>
+            <label>BHK Type</label>
             <div className="checkbox-group">
-              {['House', 'Apartment', 'Condo'].map(type => (
-                <label key={type} className="checkbox-label">
+              {['1', '2', '3', '4'].map(bhk => (
+                <label key={bhk} className="checkbox-label">
                   <input 
                     type="checkbox" 
-                    checked={filters.propertyTypes.includes(type)}
-                    onChange={() => handlePropertyTypeChange(type)}
+                    checked={filters.propertyTypes.includes(bhk)}
+                    onChange={() => handlePropertyTypeChange(bhk)}
                   />
-                  {type}
+                  {bhk} BHK
                 </label>
               ))}
             </div>
