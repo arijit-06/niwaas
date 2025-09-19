@@ -36,7 +36,7 @@ const Home = () => {
                 <div className="city-info">
                   <h3>{city.name}</h3>
                   <p>{city.properties} Properties</p>
-                  <Link to="/search" className="explore-btn">Explore</Link>
+                  <Link to="/search" state={{ city: city.name }} className="explore-btn">Explore</Link>
                 </div>
               </div>
             ))}

@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import '../styles/Search.css';
 
 const Search = () => {
+  const { state } = useLocation();
   const [filters, setFilters] = useState({
     location: '',
     priceRange: 500000,
@@ -9,6 +11,12 @@ const Search = () => {
     bedrooms: '',
     bathrooms: ''
   });
+
+  useEffect(() => {
+    if (state?.city) {
+      setFilters(prev => ({ ...prev, location: state.city }));
+    }
+  }, [state]);
 
   const handlePropertyTypeChange = (type) => {
     setFilters(prev => ({
@@ -42,15 +50,14 @@ const Search = () => {
           </div>
 
           <div className="filter-group">
-            <label>Price Range: ₹{filters.priceRange.toLocaleString()}</label>
-            <input 
-              type="range" 
-              min="100000" 
-              max="10000000" 
-              step="100000"
-              value={filters.priceRange}
-              onChange={(e) => setFilters({...filters, priceRange: parseInt(e.target.value)})}
-            />
+            <label>Price Range (₹)
+              <input
+                type="number"
+                value={filters.priceRange}
+                onChange={e => setFilters({...filters, priceRange: parseInt(e.target.value)})}
+                placeholder="e.g., 500000"
+              />
+            </label>
           </div>
 
           <div className="filter-group">

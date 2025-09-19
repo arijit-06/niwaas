@@ -94,12 +94,15 @@ main {
 }
 
 /* Footer Styles */
-.footer {
-  background: var(--primary-color);
-  color: var(--white);
-  text-align: center;
-  padding: 2rem 0;
+.footer-wrapper {
+  background-color: #1f2937;
+  color: #f9fafb;
+  padding: 2rem 1rem;
   margin-top: auto;
+}
+
+.footer {
+  text-align: center;
 }
 
 .footer-container {
